@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,15 @@ public class inventoryManager : MonoBehaviour
     {
         invent = GameObject.Find("inventario");
         invent.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (invent.activeSelf == true)
+        {
+            
+        }
+
     }
 
     public void OnInventory(InputValue value)

@@ -27,9 +27,9 @@ public class playermanager : MonoBehaviour
             isGrounded = true;
         }
     }
-    public void OnJump(InputValue Value)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        float input = Value.Get<float>();
+        float input = 1;
         if (isGrounded == true)
         {
             rb.linearVelocityY = input * 25f;
@@ -37,9 +37,18 @@ public class playermanager : MonoBehaviour
         }
         
     }
-    public void OnMove(InputValue Value)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 input = Value.Get<Vector2>();
-        movement = input.x * 10f;
+        if (context.performed)
+        {
+            Vector2 input = context.ReadValue<Vector2>();
+            movement = input.x * 10f;
+        }
+        if (context.canceled)
+        {
+            Vector2 input = context.ReadValue<Vector2>();
+            movement = input.x * 10f;
+        }
+        
     }
 }
