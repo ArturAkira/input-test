@@ -6,7 +6,7 @@ public class playermanager : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D pcol;
     private float movement;
-    private bool isGrounded;
+    public bool isGrounded;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,7 +22,7 @@ public class playermanager : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D col)
     {
-        if (GameObject.FindGameObjectWithTag("ground") == true)
+        if (col.gameObject.CompareTag("ground") == true)
         {
             isGrounded = true;
         }
