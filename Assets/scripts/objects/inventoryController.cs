@@ -2,44 +2,11 @@
 
 public class inventoryController : MonoBehaviour
 {
+    [SerializeField] private ataqueanimation ataqueanimation;
     void Start()
     {
-        // ==========================================
-        // INICIALIZA OS SLOTS NORMAIS
-        // ==========================================
-/*
-        if (gameManager.Instance.slots == null)
-        {
-            gameManager.Instance.slots =
-                new Objects[gameManager.Instance.slotImage.Length];
-
-            gameManager.Instance.slotAmount =
-                new int[gameManager.Instance.slotImage.Length];
-        }
-
-
-        // ==========================================
-        // INICIALIZA OS SLOTS DE EQUIPAMENTO
-        // ==========================================
-
-        if (gameManager.Instance.equipSlots == null)
-        {
-            gameManager.Instance.equipSlots =
-                new Objects[gameManager.Instance.equipSlotImage.Length];
-
-            gameManager.Instance.equipSlotAmount =
-                new int[gameManager.Instance.equipSlotImage.Length];
-        }*/
-
-
         UpdateUI();
     }
-
-
-    // =========================================================
-    // ATUALIZAR UI
-    // =========================================================
-
     public void UpdateUI()
     {
         // ==========================================

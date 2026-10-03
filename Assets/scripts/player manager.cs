@@ -1,20 +1,25 @@
+using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class playermanager : MonoBehaviour
 {
+    [SerializeField] private Transform atkPoint;
+
     private Rigidbody2D rb;
     private BoxCollider2D pcol;
     private float movement;
-    public bool isGrounded;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool isGrounded;
+    private bool isWall = false;
+    private int direction;
+    private int oldDirection;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         rb.linearVelocityX = movement;
@@ -26,13 +31,36 @@ public class playermanager : MonoBehaviour
         {
             isGrounded = true;
         }
+        if (col.gameObject.CompareTag("wall") == true)
+        {
+            oldDirection = direction;
+            isWall = true;
+        }
+    }
+    public void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("wall") == true)
+        {
+            isWall = false;
+        }
     }
     public void OnJump(InputAction.CallbackContext context)
     {
         float input = 1;
-        if (isGrounded == true)
+        if (context.performed)
         {
-            rb.linearVelocityY = input * 25f;
+            if (isGrounded == true)
+            {
+                rb.linearVelocityY = input * 17f;
+            }
+
+            else if (isGrounded == false && isWall == true && oldDirection == direction)
+            {
+                    rb.linearVelocityY = input * 15f;
+                    movement *= -1f;
+                    StartCoroutine(wait());
+                isWall = false;
+            }
             isGrounded = false;
         }
         
@@ -42,13 +70,20 @@ public class playermanager : MonoBehaviour
         if (context.performed)
         {
             Vector2 input = context.ReadValue<Vector2>();
-            movement = input.x * 10f;
+            direction = (input.x > 0) ? 1 : -1;
+            movement = input.x * 7f;
+            rb.transform.localScale = new Vector2(direction, 1);
         }
         if (context.canceled)
         {
             Vector2 input = context.ReadValue<Vector2>();
-            movement = input.x * 10f;
+            movement = input.x * 7f;
         }
         
+    }
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(0.15f);
+        movement = direction *5f;
     }
 }

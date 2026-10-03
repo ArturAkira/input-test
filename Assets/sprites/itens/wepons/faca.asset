@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: faca
   itemSprite: {fileID: -5311439775963968987, guid: c1bf878551f1ada468b5d9f043dbc7dd, type: 3}
   itemClass: wepon
-  itemId: 0
+  itemId: 1

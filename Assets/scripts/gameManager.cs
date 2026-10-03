@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
@@ -23,6 +24,11 @@ public class gameManager : MonoBehaviour
 
     public bool stopPlayer;
 
+    public float playerMaxHp;
+    public float playerHp;
+    private bool isStarting = true;
+    private bool isDead = false;
+
     private void Awake()
     {
         if (Instance == null) { Instance = this; DontDestroyOnLoad(gameObject); }
@@ -36,12 +42,13 @@ public class gameManager : MonoBehaviour
     }
     void Start()
     {
-        
+        playerMaxHp = (playerMaxHp == 0) ? 50 : playerMaxHp;
+        playerHp = (isStarting == true) ? playerHp = playerMaxHp : playerHp;
     }
 
     void Update()
     {
-        if (stopPlayer == true)
+        if (stopPlayer == true && isDead == true)
             {Time.timeScale = 0f;}
         else
             { Time.timeScale = 1f;}
@@ -55,5 +62,9 @@ public class gameManager : MonoBehaviour
     public void setContent(TMP_InputField inputField)
     {
         if (text != null && text != "") { inputField.text = text; }
+    }
+    public void deathScreen()
+    {
+        isDead = true; Time.timeScale = 0f; ; Debug.Log("Voce morreu");
     }
 }
