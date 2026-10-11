@@ -1,7 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class inventoryController : MonoBehaviour
 {
+    [SerializeField] private Image[] slotImage;
+    [SerializeField] private Image[] slotItemImage;
+
+    [SerializeField] private Image[] equipImage;
+    [SerializeField] private Image[] equipItemImage;
+    
+
     [SerializeField] private ataqueanimation ataqueanimation;
     void Start()
     {
@@ -9,51 +17,33 @@ public class inventoryController : MonoBehaviour
     }
     public void UpdateUI()
     {
-        // ==========================================
-        // SLOTS NORMAIS
-        // ==========================================
-
-        for (int i = 0; i < gameManager.Instance.slotImage.Length; i++)
+        for (int i = 0; i < slotItemImage.Length; i++)
         {
             if (gameManager.Instance.slots[i] != null)
             {
-                // Mostra o sprite do item
-                gameManager.Instance.slotItemImage[i].sprite =
-                    gameManager.Instance.slots[i].itemSprite;
+                slotItemImage[i].sprite = gameManager.Instance.slots[i].itemSprite;
 
-                gameManager.Instance.slotItemImage[i].enabled = true;
+                slotItemImage[i].enabled = true;
             }
             else
             {
-                // Esconde somente o item
-                // O fundo do slot continua aparecendo
-                gameManager.Instance.slotItemImage[i].sprite = null;
-
-                gameManager.Instance.slotItemImage[i].enabled = false;
+                slotItemImage[i].sprite = null;
+                slotItemImage[i].enabled = false;
             }
         }
 
-
-        // ==========================================
-        // SLOTS DE EQUIPAMENTO
-        // ==========================================
-
-        for (int i = 0; i < gameManager.Instance.equipSlotImage.Length; i++)
+        for (int i = 0; i < equipItemImage.Length; i++)
         {
             if (gameManager.Instance.equipSlots[i] != null)
             {
-                gameManager.Instance.equipItemImage[i].sprite =
-                    gameManager.Instance.equipSlots[i].itemSprite;
+                equipItemImage[i].sprite = gameManager.Instance.equipSlots[i].itemSprite;
 
-                gameManager.Instance.equipItemImage[i].enabled = true;
+                equipItemImage[i].enabled = true;
             }
             else
             {
-                // Esconde somente o item
-                // O fundo do slot continua aparecendo
-                gameManager.Instance.equipItemImage[i].sprite = null;
-
-                gameManager.Instance.equipItemImage[i].enabled = false;
+                equipItemImage[i].sprite = null;
+                equipItemImage[i].enabled = false;
             }
         }
     }

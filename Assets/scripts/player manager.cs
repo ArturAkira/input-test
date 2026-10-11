@@ -19,6 +19,11 @@ public class playermanager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (gameManager.Instance.isStarting == false)
+        {
+            rb.transform.position = new Vector2(gameManager.Instance.coordX, gameManager.Instance.coordY);
+        }
+        else { gameManager.Instance.isStarting = false;  }
     }
     void Update()
     {
@@ -47,14 +52,14 @@ public class playermanager : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         float input = 1;
-        if (context.performed)
+        if (context.performed && gameManager.Instance.stopPlayer == false && Time.timeScale != 0)
         {
             if (isGrounded == true)
             {
                 rb.linearVelocityY = input * 17f;
             }
 
-            else if (isGrounded == false && isWall == true && oldDirection == direction)
+            else if (isGrounded == false && isWall == true && oldDirection == direction && Time.timeScale != 0)
             {
                     rb.linearVelocityY = input * 15f;
                     movement *= -1f;
@@ -67,14 +72,14 @@ public class playermanager : MonoBehaviour
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && Time.timeScale != 0)
         {
             Vector2 input = context.ReadValue<Vector2>();
             direction = (input.x > 0) ? 1 : -1;
             movement = input.x * 7f;
             rb.transform.localScale = new Vector2(direction, 1);
         }
-        if (context.canceled)
+        if (context.canceled && Time.timeScale != 0)
         {
             Vector2 input = context.ReadValue<Vector2>();
             movement = input.x * 7f;

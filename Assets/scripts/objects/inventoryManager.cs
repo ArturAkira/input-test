@@ -38,6 +38,6 @@ public class inventoryManager : MonoBehaviour
 
     public void OnInventory(InputValue value)
     {
-        if (invent.activeSelf == false) invent.SetActive(!invent.activeSelf);
+        if (invent.activeSelf == false && Time.timeScale != 0) invent.SetActive(!invent.activeSelf);
     }
 }

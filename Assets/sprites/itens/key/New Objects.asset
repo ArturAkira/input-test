@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51c73d18d6487b3418ea2d2850309b07, type: 3}
-  m_Name: faca_0
+  m_Name: New Objects
   m_EditorClassIdentifier: Assembly-CSharp::Objects
-  itemName: faca
-  itemSprite: {fileID: -5311439775963968987, guid: c1bf878551f1ada468b5d9f043dbc7dd, type: 3}
-  itemClass: wepon
-  itemId: 1
+  itemName: diary
+  itemSprite: {fileID: 6235301868197031760, guid: 6578aa60b3858d94380fef469553df63, type: 3}
+  itemClass: key
+  itemId: 0

@@ -26,12 +26,10 @@ public class ataqueanimation : MonoBehaviour
             if (_playerWeponId != value)
             {
                 _playerWeponId = value;
-                Debug.Log("kdjbavdb");
                 switch (_playerWeponId)
                 {
                     case null:
                         NoWepon();
-                        Debug.Log("está null");
                         break;
                     case "0":
                         NoWepon();
@@ -58,15 +56,17 @@ public class ataqueanimation : MonoBehaviour
 
     public void OnAtaque(InputAction.CallbackContext context)
     {
-
-        if (context.started)
-        {
-            anim.SetBool("botao", true);
-        }
-        if (context.canceled)
-        {
-            anim.SetBool("botao", false);
-        }
+        if(gameManager.Instance.equipSlots[3] != null)
+            {
+                if (context.started)
+                {
+                    anim.SetBool("botao", true);
+                }
+                if (context.canceled)
+                {
+                    anim.SetBool("botao", false);
+                }
+            }
     }
 
     public void attack()

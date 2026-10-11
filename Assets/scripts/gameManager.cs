@@ -1,54 +1,63 @@
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.Processors;
-using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 { 
     public static gameManager Instance;
+
+    //diary text
     public string text;
 
-    public Image[] slotImage;
+    //slots and itens
     public Objects[] slots;
     public int[] slotAmount;
-    public Image[] slotItemImage;
 
-    public Image[] equipSlotImage;
     public Objects[] equipSlots;
     public int[] equipSlotAmount;
-    public Image[] equipItemImage;
 
     public HashSet<string> collectedItems = new HashSet<string>();
 
+    //player stats
     public bool stopPlayer;
 
     public float playerMaxHp;
     public float playerHp;
-    private bool isStarting = true;
+    public bool isStarting = true;
     private bool isDead = false;
+
+    public float coordX = 0;
+    public float coordY = 0;
+
+    //textbox
+    
+    public bool dialogTime;
 
     private void Awake()
     {
-        if (Instance == null) { Instance = this; DontDestroyOnLoad(gameObject); }
-        else {Destroy(gameObject); }
+        if (Instance == null) { 
+            Instance = this; 
+            DontDestroyOnLoad(gameObject);
 
-        slots = new Objects[slotImage.Length];
-        slotAmount = new int[slotImage.Length];
+            slots = new Objects[15];
+            slotAmount = new int[15];
 
-        equipSlots = new Objects[equipSlotImage.Length];
-        equipSlotAmount = new int[equipSlotImage.Length];
+            equipSlots = new Objects[5];
+            equipSlotAmount = new int[5];
+        }
+        else {
+            Destroy(gameObject); 
+        }
+        playerMaxHp = (playerMaxHp == 0) ? 50 : playerMaxHp;
+        playerHp = (isStarting == true) ? playerHp = playerMaxHp : playerHp;
     }
     void Start()
     {
-        playerMaxHp = (playerMaxHp == 0) ? 50 : playerMaxHp;
-        playerHp = (isStarting == true) ? playerHp = playerMaxHp : playerHp;
     }
 
     void Update()
     {
-        if (stopPlayer == true && isDead == true)
+        if (stopPlayer == true || isDead == true || dialogTime == true)
             {Time.timeScale = 0f;}
         else
             { Time.timeScale = 1f;}
