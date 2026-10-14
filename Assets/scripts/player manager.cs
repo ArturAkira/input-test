@@ -13,6 +13,7 @@ public class playermanager : MonoBehaviour
     private float movement;
     private bool isGrounded;
     private bool isWall = false;
+    private bool stop = false;
     private int direction;
     private int oldDirection;
 
@@ -27,7 +28,16 @@ public class playermanager : MonoBehaviour
     }
     void Update()
     {
+        if (gameManager.Instance.dialogTime || Time.timeScale == 0)
+        {
+            movement = 0f;
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         rb.linearVelocityX = movement;
+
+        rb.gravityScale = isWall ? 0.25f : 5f;
     }
 
     public void OnCollisionEnter2D(Collision2D col)
@@ -49,6 +59,12 @@ public class playermanager : MonoBehaviour
             isWall = false;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("event")) { stop = true; }
+    }
+
     public void OnJump(InputAction.CallbackContext context)
     {
         float input = 1;
@@ -72,7 +88,7 @@ public class playermanager : MonoBehaviour
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (context.performed && Time.timeScale != 0)
+        if (context.performed && gameManager.Instance.stopPlayer == false && Time.timeScale != 0)
         {
             Vector2 input = context.ReadValue<Vector2>();
             direction = (input.x > 0) ? 1 : -1;

@@ -90,7 +90,7 @@ public class Enemy : MonoBehaviour
             isAttacking = true;
             rb.linearVelocityX = 0;
             anim.Play("enemyAttack1");
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
 
             //if (direction <= 2 && direction >= -2) { yield return new WaitForSeconds(1f); }
                 
